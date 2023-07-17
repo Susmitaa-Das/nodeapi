@@ -23,6 +23,15 @@ const User = mongoose.model('User', schema)
 app.get('/', (req, res) => {
   res.send('Nice working')
 })
+
+app.get('/users/all',async (req,res)=>{
+  const users = await User.find({})
+
+  res.json({
+    success:true,
+    users,
+  })
+})
 app.post('/users/new', async (req, res) => {
     const {name,email,password} = req.body
    await User.create({
@@ -30,7 +39,7 @@ app.post('/users/new', async (req, res) => {
     email,
     password,
   })
-  res.status(201).json({
+  res.status(201).cookie('tempi','lol').json({
     success: true,
     message:'Registered successfully',
   })
