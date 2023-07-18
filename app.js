@@ -47,13 +47,20 @@ app.post('/users/new', async (req, res) => {
     message: 'Registered successfully',
   })
 })
-app.get('/userid', async (req, res) => {
-  const { id } = req.query
-  //const user = await User.findById(id)
-  console.log(req.params)
+
+app.get('/userid/special',(req,res)=>{
   res.json({
     success: true,
-    user:{},
+    message:'Just joking',
+  })
+})
+app.get('/userid/:id', async (req, res) => {
+  const { id } = req.params
+  const user = await User.findById(id)
+  
+  res.json({
+    success: true,
+    user,
   })
 })
 
