@@ -24,24 +24,36 @@ app.get('/', (req, res) => {
   res.send('Nice working')
 })
 
-app.get('/users/all',async (req,res)=>{
+app.get('/users/all', async (req, res) => {
   const users = await User.find({})
 
+  const keyword = req.query.keyword
+  console.log(keyword)
+
   res.json({
-    success:true,
+    success: true,
     users,
   })
 })
 app.post('/users/new', async (req, res) => {
-    const {name,email,password} = req.body
-   await User.create({
+  const { name, email, password } = req.body
+  await User.create({
     name,
     email,
     password,
   })
-  res.status(201).cookie('tempi','lol').json({
+  res.status(201).cookie('tempi', 'lol').json({
     success: true,
-    message:'Registered successfully',
+    message: 'Registered successfully',
+  })
+})
+app.get('/userid', async (req, res) => {
+  const { id } = req.query
+  //const user = await User.findById(id)
+  console.log(req.params)
+  res.json({
+    success: true,
+    user:{},
   })
 })
 
