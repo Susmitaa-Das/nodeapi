@@ -1,21 +1,12 @@
 import express from "express";
 import { User } from "../models/user.js";
+import { getAllUsers } from "../controllers/user.js";
 
 const router = express.Router()
 
-router.get('/users/all', async (req, res) => {
-    const users = await User.find({})
-  
-    const keyword = req.query.keyword
-    console.log(keyword)
-  
-    res.json({
-      success: true,
-      users,
-    })
-  })
+router.get('/all',getAllUsers)
 
-  app.post('/users/new', async (req, res) => {
+  router.post('/new', async (req, res) => {
     const { name, email, password } = req.body
     await User.create({
       name,
@@ -28,14 +19,14 @@ router.get('/users/all', async (req, res) => {
     })
   })
 
-  app.get('/userid/special',(req,res)=>{
+  router.get('/userid/special',(req,res)=>{
     res.json({
       success: true,
       message:'Just joking',
     })
   })
 
-  app.get('/userid/:id', async (req, res) => {
+  router.get('/userid/:id', async (req, res) => {
     const { id } = req.params
     const user = await User.findById(id)
     

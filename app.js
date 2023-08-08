@@ -1,9 +1,11 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import userRouter from './routes/user.js'
 
 const app = express()
 //Using Meadelwears
 app.use(express.json())
+app.use( "/users",userRouter)
 
 mongoose
   .connect('mongodb://127.0.0.1:27017', {
