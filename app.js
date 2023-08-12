@@ -1,20 +1,12 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import userRouter from './routes/user.js'
+import { connectDb } from './data/database.js'
 
 const app = express()
+connectDb()
 //Using Meadelwears
 app.use(express.json())
-app.use( "/users",userRouter)
-
-mongoose
-  .connect('mongodb://127.0.0.1:27017', {
-    dbName: 'backendapi',
-  })
-  .then(() => console.log('Database Connected'))
-  .catch((e) => console.log(e))
-
-
+app.use('/users', userRouter)
 
 app.get('/', (req, res) => {
   res.send('Nice working')
