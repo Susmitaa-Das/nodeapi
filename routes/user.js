@@ -1,39 +1,19 @@
-import express from "express";
-import { User } from "../models/user.js";
-import { getAllUsers } from "../controllers/user.js";
+import express from 'express'
+import {
+  getAllUsers,
+  getUserDetails,
+  register,
+  specialFunc,
+} from '../controllers/user.js'
 
 const router = express.Router()
 
-router.get('/all',getAllUsers)
+router.get('/all', getAllUsers)
 
-  router.post('/new', async (req, res) => {
-    const { name, email, password } = req.body
-    await User.create({
-      name,
-      email,
-      password,
-    })
-    res.status(201).cookie('tempi', 'lol').json({
-      success: true,
-      message: 'Registered successfully',
-    })
-  })
+router.post('/new', register)
 
-  router.get('/userid/special',(req,res)=>{
-    res.json({
-      success: true,
-      message:'Just joking',
-    })
-  })
+router.get('/userid/special', specialFunc)
 
-  router.get('/userid/:id', async (req, res) => {
-    const { id } = req.params
-    const user = await User.findById(id)
-    
-    res.json({
-      success: true,
-      user,
-    })
-  })
+router.get('/userid/:id', getUserDetails)
 
-export default router;
+export default router
