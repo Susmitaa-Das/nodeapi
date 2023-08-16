@@ -1,11 +1,9 @@
 import express from 'express'
 import {
-  deleteUser,
   getAllUsers,
   getUserDetails,
+  login,
   register,
-  specialFunc,
-  updateUser,
 } from '../controllers/user.js'
 
 const router = express.Router()
@@ -14,12 +12,8 @@ router.get('/all', getAllUsers)
 
 router.post('/new', register)
 
-router.get('/userid/special', specialFunc)
+router.post('/login', login)
 
-router
-  .route('/userid/:id')
-  .get(getUserDetails)
-  .put(updateUser)
-  .delete(deleteUser)
+router.route('/userid/:id').get(getUserDetails)
 
 export default router
